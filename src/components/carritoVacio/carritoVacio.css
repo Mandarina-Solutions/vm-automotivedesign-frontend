@@ -1,0 +1,32 @@
+.vacio {
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    background: linear-gradient(to top, #fbc901, #fb4b01);
+    padding: 3rem;
+    border-radius: 1rem;
+    border: 2px solid black;
+    margin: 0 auto;
+
+
+    & p {
+        font-size: 1rem;
+        font-weight: bold;
+        margin: 2rem 0 2rem 0;
+    }
+
+    & a {
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: black;
+        background-color: orangered;
+        border: 2px solid black;
+        border-radius: 0.5rem;
+        padding: 1rem;
+    }
+}
