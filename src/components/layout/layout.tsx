@@ -4,7 +4,6 @@ import { Header } from "../header/header";
 import { Footer } from "../footer/footer";
 import { Nav } from "../nav/nav";
 import { DondeEstoy } from "../dondeEstoy/dondeEstoy";
-import { Search } from "../search/search";
 import { useEffect, useState } from "react";
 
 export const Layout = () => {

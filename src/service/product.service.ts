@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Articulo, ArticuloDetalle, IDimension } from "../models/Articulo";
 
 class ProductService {
@@ -32,6 +32,12 @@ class ProductService {
 
 export async function getProductsByFilter(filterValue:string) : Promise<Articulo[]>{
     const promise: Promise<AxiosResponse<Articulo[], any>> = axios.get('http://localhost:8080/articulos/filter', {params:{filter:filterValue}})
+    const products = (await promise).data
+    return products
+}
+
+export async function getProductsByCategory(category:string) : Promise<Articulo[]>{
+    const promise: Promise<AxiosResponse<Articulo[], any>> = axios.get('http://localhost:8080/articulos/categoria', {params:{categoria:category}})
     const products = (await promise).data
     return products
 }

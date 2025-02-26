@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Product } from "../../components/product/product";
 import { Articulo } from "../../models/Articulo";
 import './home.css';
@@ -8,27 +8,28 @@ import { useNavigate } from "react-router-dom";
 import { productService } from "../../service/product.service";
 import { Search } from "../../components/search/search";
 
-export const Home = () => {
+export type SearchModeState = 'byTitle' | 'byCategory' 
+
+export const Home = (
+    {searchModeProp}:{searchModeProp:SearchModeState}
+) => {
     const userState = useSelector((store: RootState) => store.user);
     const [products, setProducts] = useState<Articulo[]>([]);
 
     const navigate = useNavigate();
 
-    const fetchData = async () => {
-        try {
-            const res = await productService.getAllProduct();
-            setProducts(res)
-            // console.log("Productos obtenidos: ", res);
-        } catch (error) {
-            // console.error("Error al obtener los productos: ", error);
-        }
-    }
+    // const fetchData = async () => {
+    //     try {
+    //         const res = await productService.getAllProduct();
+    //         setProducts(res)
+    //     } catch (error) {
+    //     }
+    // }
 
-    useEffect(() => {
-        // console.log("Usuario logeado ", userState);
-        fetchData()
-    }, [])
-    
+    // useEffect(() => {
+    //     fetchData()
+    // }, [])
+
     const listProducts = products.map((product, index) =>
         <Product key={index} product={product}></Product>
     )
@@ -38,7 +39,8 @@ export const Home = () => {
     }
 
     return <>
-        <Search setParentProducts={setProducts}></Search>
+        <Search setParentProducts={setProducts} searchMode={searchModeProp}></Search>
+
         <div className="productsList">
                 {listProducts}
                 {userState.estado && 
