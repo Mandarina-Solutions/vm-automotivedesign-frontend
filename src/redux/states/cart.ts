@@ -56,7 +56,6 @@ export const cartSlice = createSlice({
       }
     },
 
-    
     clearCart: () => {
       saveCartToSessionStorage([]); // Vaciar sessionStorage
       return [];
@@ -65,3 +64,7 @@ export const cartSlice = createSlice({
 });
 
 export const { addToCart, removeFromCart, clearCart, updateCantidad } = cartSlice.actions;
+
+// reducer sirve para manipular el estado, si quiero acceder a atributos del estado, tengo que hacerlo a través de un selector
+export const cartSize = (state: { cart: ArticuloUser[]; }) => state.cart.length;
+

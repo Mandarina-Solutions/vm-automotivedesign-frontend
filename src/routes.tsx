@@ -15,11 +15,7 @@ export const AppRouter = () => {
                 <Route element={<Login />} path={'login'} />
                 <Route element={<Layout />}>
                     <Route element={<Home />} path={`/productos`} />
-                    {/* <Route element={<ProductList />} path={`/products`} /> */}
-                    <Route element={
-                        <ToastProvider key={1}  children= {<ProductDetail/>} />
-                    } path={`/productos/:id`} />
-
+                    <Route element={<ProductDetail/>} path={`/productos/:id`} />
                     <Route element={<QuienSoy />} path={`/quienSoy`} />
                     <Route element={<CartComponent />} path={`/carrito`} />
                 </Route>

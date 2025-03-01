@@ -8,12 +8,11 @@ type ToastProperties = {
     close: ()=>void,
 } 
 
-export function Toast({message, option, close}: ToastProperties){
+export function Toast({message, option}: ToastProperties){
 
     return (
         <div className={`toast ${option} show`} id="toast">
             <p>{message}</p>
-            <button onClick={close}>X</button>
         </div>
     )
 

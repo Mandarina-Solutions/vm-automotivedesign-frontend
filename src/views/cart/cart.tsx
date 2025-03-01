@@ -9,17 +9,24 @@ import { CarritoVacio } from "../../components/carritoVacio/carritoVacio";
 import { mailService } from "../../service/mail.service";
 import { useNavigate } from "react-router-dom";
 
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import { Button } from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useToast } from "../../hooks/useToast";
+
 const CartComponent = () => {
     const articuloUser = useSelector((state: RootState) => state.cart);
     const dispatch = useDispatch();
     const [precioTotal, setprecioTotal] = useState(0);
     const [mail, setMail] = useState("");
 
-    const navigate = useNavigate();
-
+    const toast = useToast();
 
     const eliminarArticulo = (index: number) => {
         dispatch(removeFromCart(index));
+        toast.open("Artículo eliminado del carrito", "error");
+
     };
 
     const sumar = (index: number) => {
@@ -43,24 +50,21 @@ const CartComponent = () => {
         setprecioTotal(total);
     }, [articuloUser]);
 
-    const vaciarCarro = () => {
-        dispatch(clearCart());
+    const vaciarCarro = (compro = false) => {
+        dispatch(clearCart()); 
+        toast.open(compro ? "Pedido realizado con éxito verifica tu Mail" : "Se vació el carrito", compro ? "success" : "error");
     };
+    
 
     const comprar = () => {
         if (isValid(mail)) {
             mailService.sendMail(mail, articuloUser, precioTotal);
-            vaciarCarro();
-            // navigate("/productos");
-
-
+            vaciarCarro(true);
         }
-        else{
-            alert("Por favor, introduce un e-Mail válido.");
-
+        else {
+            toast.open("Mail inválido", "error");
         }
         return;
-
     };
 
     return (
@@ -70,6 +74,7 @@ const CartComponent = () => {
 
             ) : (
                 <>
+
                     <table className="cartTable">
                         <thead>
                             <tr className="cartTableHeader">
@@ -84,39 +89,55 @@ const CartComponent = () => {
                                 <tr key={index}>
                                     <td >
                                         <div className="articulo">
-                                            <div>{item.titulo}</div>
+                                            <div><p>{item.titulo}</p></div>
                                             <div><img src={item.imagen} alt={item.titulo} /></div>
-                                            <div>{item.color}</div>
-                                            <div>{item.dimension_mm}</div>
+                                            <div><p>{item.color}</p></div>
+                                            <div><p>{item.dimension_mm}</p></div>
                                         </div>
                                     </td>
-                                    <td className="cantidad">
+                                    <td>
                                         <div className="contador">
-                                            <button className="contadorRestar" onClick={() => restar(index)}>-</button>
-                                            {item.cantidad}
-                                            <button className="contadorSumar" onClick={() => sumar(index)}>+</button>
+
+                                            <Button onClick={() => restar(index)}>
+                                                <RemoveCircleOutlineIcon style={{ color: 'red', fontSize: '2rem' }} ></RemoveCircleOutlineIcon>
+                                            </Button>
+
+                                            <p>{item.cantidad}</p>
+                                            <Button onClick={() => sumar(index)}>
+                                                <AddCircleOutlineIcon style={{ color: 'green', fontSize: "2rem" }} ></AddCircleOutlineIcon>
+                                            </Button>
                                         </div>
                                     </td>
-                                    <td className="precio">${item.precio_lista}</td>
-                                    <td className="eliminar">
-                                        <button className="eliminarProducto" onClick={() => eliminarArticulo(index)}>X</button>
+                                    <td>
+                                        <div className="precio"><p>${item.precio_lista}</p></div>
+                                    </td>
+                                    <td >
+                                        <div className="eliminar">
+                                            <Button onClick={() => eliminarArticulo(index)}>
+                                                <DeleteForeverIcon style={{ color: 'red', fontSize: '3rem' }}></DeleteForeverIcon>
+                                            </Button>
+
+
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
                             <tr>
-                                <td className="precioFinal" colSpan={3}>Precio Final</td>
-                                <td className="precioFinal">${precioTotal}</td>
+                                <td colSpan={3}><div className="precioFinal"><p>PrecioFinalPrecio Final</p></div></td>
+                                <td ><div className="precioFinal"><p>${precioTotal}</p></div></td>
                             </tr>
                             <tr>
-                                <td className="datosMail" colSpan={4}>
-                                    <p>Introduce un e-Mail y nos contactaremos a la brevedad</p>
-                                    <input
-                                        className="inputMail"
-                                        type="email"
-                                        placeholder="Introduce tu e-Mail"
-                                        onChange={(e) => setMail(e.target.value)}
-                                        value={mail} 
-                                    />
+                                <td colSpan={4}>
+                                    <div className="datosMail">
+                                        <p>Introduce tu e-Mail y nos contactaremos para continuar la compra</p>
+                                        <input
+                                            className="inputMail"
+                                            type="email"
+                                            placeholder="Introduce tu e-Mail"
+                                            onChange={(e) => setMail(e.target.value)}
+                                            value={mail}
+                                        />
+                                    </div>
                                 </td>
 
                             </tr>
@@ -126,8 +147,9 @@ const CartComponent = () => {
 
 
                     <div className="guardarCancelar">
-                        <ButtonRed label="Volver" onClick={vaciarCarro} />
-                        <ButtonGreen label="Añadir" onClick={comprar} />
+                        <ButtonRed label="Vaciar" onClick={() => vaciarCarro(false)} />
+
+                        <ButtonGreen label="Continuar" onClick={comprar} />
                     </div>
 
                 </>

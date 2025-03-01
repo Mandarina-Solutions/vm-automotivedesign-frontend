@@ -1,42 +1,56 @@
 .search{
-    width: 85%;
-    height: 4rem;
-    margin-top: 1rem;
-    background: var(--colorGradietne);
-    border-radius: 1rem;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    position: relative;
-}
-
-.container{
-    display: flex;
-    position: absolute;
     justify-content: center;
     align-items: center;
-    width: 99%;
-    height: 90%;
+    flex-direction: row;
+    min-width: 15rem;
+    height: 95%;
     background-color: grey;
+    border: 1px solid yellow;
     border-radius: 1rem;
-    top: 0.2rem;
+}
+
+.inputBusqueda {
+    height: 100%;
+
+    & input {
+        width: 100%;
+        height: 2rem;
+        background-color: transparent;
+        color: white;
+        padding-left: 1rem;
+        border-radius: 1rem;
+        border: none;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    & input::placeholder {
+        font-weight: bold;
+        color: black;
+        font-style: italic;
+    }
+
+    & input:focus {
+        border: none; 
+        outline: none;
+        cursor: pointer;
+    }
 }
 
 
-input{
-    border: none;
-    width: 85%;
-    background-color: transparent;
-    outline: none;
-    padding: 0.8rem 2rem;
-    font-size: 1.2rem;
-    height: 4rem;   
-}
-
-button{
+.lupa{
     background-color: transparent;
     border: none;
-    width: 10%;
-    margin-right: 0.5rem;
+    & button{
+        background-color: transparent;
+        border: none;
+        margin-right:1rem ;
+        & svg{
+            background-color: transparent;
+            width: 2rem;
+            height: 2.5rem;
+        }
+    }
 }

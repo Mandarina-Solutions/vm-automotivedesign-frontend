@@ -6,6 +6,7 @@ import { Nav } from "../nav/nav";
 import { DondeEstoy } from "../dondeEstoy/dondeEstoy";
 import { Search } from "../search/search";
 import { useEffect, useState } from "react";
+import { ToastProvider } from "../../context/toast.context";
 
 export const Layout = () => {
 
@@ -31,13 +32,15 @@ export const Layout = () => {
         convertirPat();
     }, [pat]);
 
-    return <>
+    return (
         <div className="layout">
-            <Header></Header>
-            <Nav></Nav>
-            <DondeEstoy titulo={titulo}></DondeEstoy>
-            <Outlet></Outlet>
-            <Footer></Footer>
+            <Header />
+            <Nav /> {/* categorias / search */}
+            <DondeEstoy titulo={titulo} />
+            <ToastProvider>
+                <Outlet />{/* home antes -> barra */}
+            </ToastProvider>
+            <Footer />
         </div>
-    </>
+    );
 };

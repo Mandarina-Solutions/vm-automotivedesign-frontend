@@ -28,9 +28,12 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
 
     function openToast(message: string, type: ToastOptions): void {
-        const toast = newToast(message, type)
-        setToasts((prevToasts) => [...prevToasts, toast])
+        const toast = newToast(message, type);
+        setToasts((prevToasts) => [...prevToasts, toast]);
+    
+        setTimeout(() => closeToast(toast.id), 2000);
     }
+    
 
     function closeToast(id: number): void {
         setToasts((prevToasts) =>

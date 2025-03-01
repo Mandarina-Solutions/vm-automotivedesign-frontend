@@ -1,49 +1,82 @@
 nav {
     width: 100%;
-    height: 65vh;
+    height: 25rem;
     background: var(--colorGradietne);
     display: flex;
     flex-direction: column;
 }
 
 .links {
-    height: 3rem;
+    height: 5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap;
 
 }
-
-.enlaces,
-.containerNombre,
-.carrito {
-    width: 33%;
+.enlaces{
     display: flex;
     flex-direction: row;
-    gap: 1rem;
-    padding: 0.5rem;
+    width: 33%;
+    gap: 0.5rem;
+    justify-content: space-around;
     align-items: center;
+}
 
-    & a {
-        text-decoration: none;
-        color: black;
+.enlaces div, .enlaces p, .enlaces a{
+    width: auto;
+    font-size: 1rem;
+    text-wrap: nowrap;
+    color: black;
+    text-decoration: underline 3px;
+    text-underline-offset: 5px;
+    text-decoration-color: rgba(0, 0, 0, 0);
+}
 
+.enlaces p:hover, .enlaces a:hover {
+    animation: diego 1s ease;
+    color: red;
+}
+
+@keyframes diego {
+    0% {
+        text-decoration-color: yellow;
     }
-
+   
+    100% {
+        text-decoration-color: orangered;
+    }
 }
 
 .containerNombre {
+    width: auto;
     justify-content: center;
 }
 
-.carrito {
-    justify-content: flex-end;
-    margin-right: 3rem;
+.nombreEmprendimiento {
+    width: 15rem;
+    height: 2rem;
+    /* position: relative; */
 
-    & svg {
-        margin: 0 auto;
+}
+
+.carrito {
+    width: 33%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+
+    & div{
+        width: auto;
+    }
+}
+
+.chango{
+    margin-right: 1rem;
+    & svg{
+        width: 3rem;
+        height: 3rem;
     }
 }
 
@@ -51,11 +84,7 @@ nav {
     fill: yellow;
 }
 
-.nombreEmprendimiento {
-    width: 15rem;
-    height: 1rem;
 
-}
 
 a:hover {
     color: yellow;
@@ -90,8 +119,9 @@ a:hover {
     width: 33%;
 
     & img {
-        width: 15rem;
-        height: 15rem;
+        width: 14rem;
+        height: 12rem;
+        rotate: 90deg;
     }
 }
 
@@ -101,56 +131,79 @@ a:hover {
 
 
 @media (max-width: 940px) {
-    .enlaces {
-        display: none;
+
+    nav {
+        height: 100%;
+    }
+    
+    .links{
+        height: 3rem;
+        justify-content: space-between;
+        border: 1px solid yellow;
+        margin-bottom: 4rem;
+        padding: 1rem;
+        & .burger, .carrito{
+            width: min-content;
+        }
+
+    }
+
+    .enlaces{
+        display: none;    
     }
 
     .burger {
-        display: flex;
+        display: inline;
+        width: 5rem;
+    }
+    
+    
+    .nombreEmprendimiento {
+        width: 13rem;
+    }
+
+    .carrito{
+        width: min-content;
+    }
+
+    .searchResponsive {
+        position: absolute;
+        top: 5.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+
+        & .inputBusquda{
+            width: 20rem;
+        }
+    }
+    .chango{
         /* margin-right: 1rem; */
+        & svg{
+            width: 2.3rem;
+            height: 2.3rem;
+        }
     }
-
-    .burger:hover svg {
-        fill: red;
-    }
-
-    .animacionImagenes {
-        flex-direction: column;
-
-    }
-
+    
     .vacioIzquierda,
     .vacioDerecha {
-        width: 100vw;
-        height: 10vh;
+        height: 15rem;
+        width: 15%;
+        /* display: none; */
     }
-
+    
     .izquierda,
     .derecha {
+        height: 15rem;
+        width: 35%;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100vw;
-
+    
         & img {
-            width: 25vw;
-            height: 15vh;
+            width: 9rem;
+            height: 6rem;
         }
     }
-
-
-
-    .links {
-        justify-content: space-around;
-        gap: 0.5rem;
-    }
-
-    .carrito {
-        margin: 0;
-        width: 3rem;
-
-    }
-    .containerNombre{
-        width: auto;
-    }
+    
+   
 }

@@ -38,7 +38,7 @@ export const Home = () => {
     }
 
     return <>
-        <Search setParentProducts={setProducts}></Search>
+        {/* <Search setParentProducts={setProducts}></Search> */}
         <div className="productsList">
                 {listProducts}
                 {userState.estado && 
